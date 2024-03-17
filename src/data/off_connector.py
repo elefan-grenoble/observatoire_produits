@@ -38,7 +38,7 @@ class OFFConnector:
         except requests.exceptions.HTTPError as e:
             logger.info(e)
             return None
-        except requests.exceptions.ReadTimeoutError as e:
+        except requests.exceptions.ReadTimeout as e:
             logger.info(e)
             return None
         return product
