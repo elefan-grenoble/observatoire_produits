@@ -38,6 +38,9 @@ class OFFConnector:
         except requests.exceptions.HTTPError as e:
             logger.info(e)
             return None
+        except requests.exceptions.ReadTimeoutError as e:
+            logger.info(e)
+            return None
         return product
 
     def get_products_facts(self, barcodes):
