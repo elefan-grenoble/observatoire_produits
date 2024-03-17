@@ -31,6 +31,27 @@ Ce projet récupère la liste des articles vendus dans une épicerie puis ajoute
 1. Build the image within the directory : `sudo docker build --pull -f "Dockerfile" -t observatoireproduits:latest "."`
 1. Run `sudo docker run --network="host" -it observatoireproduits:latest` ou `sudo docker run --network="host" -it observatoireproduits:latest` si vous voulez sauvegarder les données sur une base MariaDB hebergée sur votre
 
+### Avec Docker-compose
+
+1. Installer docker
+1. Builder l'image Docker : `docker build -t observatoireproduits:latest .`
+1. Pousser l'image sur le dockerhub : `docker push observatoireproduits:latest`
+1. Faire un fichier docker-compose avec le contenu du fichier `.env`
+
+```
+  observatoireproduits:
+    image: lelefan/observatoireproduits:latest
+    container_name: observatoireproduits
+    environment:
+      - DB_USERNAME=test
+      - DB_PASSWORD=test
+      - DB_HOST=172.18.0.1
+      - DB_PORT=3306
+      - DB_NAME=kaso
+      - API_URL=https://produits.lelefan.org/api/articles
+```
+1. Lancer le docker-compose `docker-compose up observatoireproduits`
+
 ### Détails du connecteur l'Elefan
 ![](https://lelefan.org/wp-content/uploads/2021/02/Lelefan-Logo-long-72@2x.png)
 
