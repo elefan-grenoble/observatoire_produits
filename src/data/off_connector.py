@@ -21,7 +21,8 @@ FACTS_TO_EXPORT = [
     "packaging",
     "nutriscore_grade",
     "ecoscore_grade",
-    "nova_groups_tags",
+    "nova_group",
+    "selected_images",
 ]
 
 

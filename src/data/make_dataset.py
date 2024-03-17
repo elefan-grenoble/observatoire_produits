@@ -20,7 +20,13 @@ def transform_products_facts(off_products_facts):
                 "product_name": product_fact["product"].get("product_name", ""),
                 "nutriscore_grade": product_fact["product"].get("nutriscore_grade", ""),
                 "ecoscore_grade": product_fact["product"].get("ecoscore_grade", ""),
+                "nova_group": product_fact["product"].get("nova_group", ""),
                 "categories": product_fact["product"].get("categories", ""),
+                "image": product_fact["product"]
+                .get("selected_images", "")
+                .get("front", "")
+                .get("display", "")
+                .get("fr", ""),
             }
         )
 
