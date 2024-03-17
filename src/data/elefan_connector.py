@@ -35,7 +35,7 @@ class ElefanConnector(EpicerieConnector):
 
     def load_products_facts(self, products_facts):
         self.products_facts = products_facts
-        self.products_facts.to_csv("data/products_facts.csv", sep=";", index=False)
+        self.products_facts.to_csv("products_facts.csv", sep=";", index=False)
         engine = self._db_connect()
 
         if len(self.products_facts):
