@@ -1,21 +1,9 @@
-FROM python:latest
+FROM python:3.12-slim
 
-# Update aptitude with new repo
-RUN apt-get update
-
-# Install software
-RUN apt-get install -y git
-
-# Clone repo
-RUN git clone https://github.com/qloridant/observatoire_produits
-
-# Install requirements
-RUN cd observatoire_produits && pip install -r requirements.txt && mkdir data
-
-WORKDIR /observatoire_produits
-
-# Import environnement variables
-COPY .env observatoire_produits/.env
+COPY requirements.txt /opt/app/requirements.txt
+WORKDIR /opt/app
+RUN pip install -r requirements.txt
+COPY . /opt/app
 
 # RUN
-CMD  ["python", "observatoire_produits/src/data/make_dataset.py"]
+CMD  ["python3", "src/data/make_dataset.py"]

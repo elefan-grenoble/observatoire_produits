@@ -1,8 +1,4 @@
-# local package
--e .
-
 # external requirements
-click==8.1.7
 coverage==7.4.2
 flake8==7.0.0
 openfoodfacts==0.1.12
