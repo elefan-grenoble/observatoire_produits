@@ -14,6 +14,10 @@ def transform_products_facts(off_products_facts):
     """
     data = []
     for product_fact in off_products_facts:
+        try:
+            image = product_fact["product"]["selected_images"]["front"]["display"]["fr"]
+        except Exception:
+            image = None
         data.append(
             {
                 "code": product_fact["code"],
@@ -22,11 +26,7 @@ def transform_products_facts(off_products_facts):
                 "ecoscore_grade": product_fact["product"].get("ecoscore_grade", ""),
                 "nova_group": product_fact["product"].get("nova_group", ""),
                 "categories": product_fact["product"].get("categories", ""),
-                "image": product_fact["product"]
-                .get("selected_images", "")
-                .get("front", "")
-                .get("display", "")
-                .get("fr", ""),
+                "image": image,
             }
         )
 
