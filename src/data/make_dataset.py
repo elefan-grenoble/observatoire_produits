@@ -1,7 +1,6 @@
 import logging
 from off_connector import OFFConnector
 from elefan_connector import ElefanConnector
-from pathlib import Path
 from dotenv import find_dotenv, load_dotenv
 import pandas as pd
 
