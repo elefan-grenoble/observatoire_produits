@@ -22,10 +22,15 @@ def transform_products_facts(off_products_facts):
             {
                 "code": product_fact["code"],
                 "product_name": product_fact["product"].get("product_name", ""),
+                "quantity": product_fact["product"].get("quantity", ""),
+                "categories": product_fact["product"].get("categories", ""),
+                "labels": product_fact["product"].get("labels", ""),
+                "brands": product_fact["product"].get("brands", ""),
+                "origins": product_fact["product"].get("origins", ""),
+                "packaging": product_fact["product"].get("packaging", ""),
                 "nutriscore_grade": product_fact["product"].get("nutriscore_grade", ""),
                 "ecoscore_grade": product_fact["product"].get("ecoscore_grade", ""),
                 "nova_group": product_fact["product"].get("nova_group", ""),
-                "categories": product_fact["product"].get("categories", ""),
                 "image": image,
             }
         )
