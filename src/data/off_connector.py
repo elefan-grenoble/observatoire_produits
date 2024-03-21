@@ -13,7 +13,6 @@ logger = logging.getLogger(__name__)
 FACTS_TO_EXPORT = [
     "code",
     "product_name",
-    "images",
     "quantity",
     "categories",
     "brands",
