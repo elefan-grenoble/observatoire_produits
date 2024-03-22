@@ -1,9 +1,5 @@
 
-> [!IMPORTANT]
-> Projet transféré sur [github de l'Elefan](https://github.com/elefan-grenoble/observatoire_produits)
-
-Observatoire des Produits
-==============================
+# Observatoire des Produits
 
 Connaitre les produits d'une épicerie grâce à la BDD d'Open Food Fact. Ce projet a été initié par l'épicerie participative [l'Elefan](https://lelefan.org/).
 
@@ -48,44 +44,45 @@ Ce projet récupère la liste des articles vendus dans une épicerie puis ajoute
       - DB_HOST=172.18.0.1
       - DB_PORT=3306
       - DB_NAME=kaso
-      - API_URL=https://produits.lelefan.org/api/articles
+      - API_URL=<API_URL>
 ```
 1. Lancer le docker-compose `docker-compose up observatoireproduits`
 
 ### Détails du connecteur l'Elefan
+
 ![](https://lelefan.org/wp-content/uploads/2021/02/Lelefan-Logo-long-72@2x.png)
 
 * Récupération des produits à la vente : Depuis son [API](https://produits.lelefan.org/api/).
 * Sauvegarde : Dans sa base de donnée MariaDb
 
+# Organisation
 
-Organisation
-------------
-
-    ├── LICENSE
-    ├── Makefile           <- Makefile with commands like `make data` or `make train`
-    ├── README.md          <- The top-level README for developers using this project.
-    ├── data               <- Local export
-    │
-    ├── docs               <- A default Sphinx project; see sphinx-doc.org for details
-    │
-    ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-    │                         the creator's initials, and a short `-` delimited description, e.g.
-    │                         `1.0-jqp-initial-data-exploration`.
-    │
-    ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
-    │
-    ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-    │                         generated with `pip freeze > requirements.txt`
-    │
-    ├── setup.py           <- makes project pip installable (pip install -e .) so src can be imported
-    ├── src                <- Source code for use in this project.
-    │   ├── __init__.py    <- Makes src a Python module
-    │   │
-    │   ├── data           <- Scripts to download or generate data
-    │   │   └── make_dataset.py
-    │   │
-    │   └── visualization  <- Scripts to create exploratory and results oriented visualizations
-    │       └── visualize.py
-    │
-    └── tox.ini            <- tox file with settings for running tox; see tox.readthedocs.io
+```
+├── LICENSE
+├── Makefile           <- Makefile with commands like `make data` or `make train`
+├── README.md          <- The top-level README for developers using this project.
+├── data               <- Local export
+│
+├── docs               <- A default Sphinx project; see sphinx-doc.org for details
+│
+├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
+│                         the creator's initials, and a short `-` delimited description, e.g.
+│                         `1.0-jqp-initial-data-exploration`.
+│
+├── references         <- Data dictionaries, manuals, and all other explanatory materials.
+│
+├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
+│                         generated with `pip freeze > requirements.txt`
+│
+├── setup.py           <- makes project pip installable (pip install -e .) so src can be imported
+├── src                <- Source code for use in this project.
+│   ├── __init__.py    <- Makes src a Python module
+│   │
+│   ├── data           <- Scripts to download or generate data
+│   │   └── make_dataset.py
+│   │
+│   └── visualization  <- Scripts to create exploratory and results oriented visualizations
+│       └── visualize.py
+│
+└── tox.ini            <- tox file with settings for running tox; see tox.readthedocs.io
+```
