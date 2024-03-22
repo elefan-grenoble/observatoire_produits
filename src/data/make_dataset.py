@@ -48,9 +48,10 @@ def main():
     logger = logging.getLogger(__name__)
     epicerie_connector = ElefanConnector()
 
-    logger.info("Récuperation de la liste des codes barres de l epicerie")
+    logger.info("Récuperation de la liste des codes barres de l'epicerie")
     epicerie_connector.extract_products_codes()
     epicerie_connector.transform_products_codes()
+    logger.info(f"{len(epicerie_connector.products_codes)} codes filtrés à traiter")
 
     logger.info("Récuperation des données Open Food Facts disponibles pour cette liste")
     off_connector = OFFConnector()
