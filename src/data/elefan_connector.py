@@ -26,6 +26,10 @@ class ElefanConnector(EpicerieConnector):
         ]
 
     def filter_products(self):
+        """
+        - product status must be "ACTIF"
+        - extra filtering depending on famille code
+        """
         self.products = [p for p in self.products if p["status"] == "ACTIF"]
         self.products = [p for p in self.products if p["famille"]["code"] not in self.codes_to_exclude]
 
