@@ -5,25 +5,31 @@ import time
 
 logger = logging.getLogger(__name__)
 
-# Select the facts you want to export
-# You can find all the facts in this exemple
-# https://world.openfoodfacts.net/api/v2/product/3017620429484
+# Select the fields you want to export
+# You can find all the fields in this exemple
+# https://world.openfoodfacts.org/api/v2/product/3017620429484
 
 
-FACTS_TO_EXPORT = [
-    "code",
+OFF_FIELD_CODE = "code"
+OFF_FIELD_SELECTED_IMAGES = "selected_images"
+OFF_FIELDS_TO_EXPORT = [
+    OFF_FIELD_CODE,
     "product_name",
     "quantity",
     "categories",
     "brands",
     "labels",
     "origins",
+    "ingredients_text",
+    "nutrition_data",
     "packaging",
     "nutriscore_grade",
     "ecoscore_grade",
     "nova_group",
-    "selected_images",
+    OFF_FIELD_SELECTED_IMAGES,
 ]
+
+OFF_FIELD_SELECTED_IMAGES_KEYS = ["front", "ingredients", "nutrition", "packaging"]
 
 
 class OFFConnector:
@@ -33,7 +39,7 @@ class OFFConnector:
 
     def get_product_fact(self, barcode):
         try:
-            product = self.api.product.get(barcode, fields=FACTS_TO_EXPORT)
+            product = self.api.product.get(barcode, fields=OFF_FIELDS_TO_EXPORT)
             logger.info(f"Product found for url : https://world.openfoodfacts.org/api/v2/product/{barcode}")
         except requests.exceptions.HTTPError as e:
             logger.info(e)
