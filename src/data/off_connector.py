@@ -54,6 +54,6 @@ class OFFConnector:
             if product_fact:
                 self.products_facts.append(product_fact)
             # Avoid too many calls to the API
-            # 1 second sleep every 10 API calls
+            # 5 second sleep every 10 API calls
             if (index % 10) == 0:
-                time.sleep(1)
+                time.sleep(5)
