@@ -8,9 +8,10 @@ dotenv.load_dotenv(dotenv_path)
 
 
 class ElefanConnector(EpicerieConnector):
-    def __init__(self) -> None:
+    def __init__(self, source="off") -> None:
         super().__init__()
-        self.codes_to_exclude = [
+        self.source = source
+        self.off_codes_to_exclude = [
             21,  # bebe (inclus nourriture)
             22,  # hygiène, beauté
             23,  # entretien, nettoyage
@@ -24,14 +25,35 @@ class ElefanConnector(EpicerieConnector):
             45,  # jardinerie
             90,  # jeux
         ]
+        self.obf_codes_to_include = [
+            21,  # bebe (inclus nourriture...)
+            22,  # hygiène, beauté
+            25,  # santé
+        ]
+        self.opf_codes_to_include = [
+            24,  # cuisine
+            31,  # journaux
+            41,  # maison
+            42,  # papeterie
+            43,  # textile
+            44,  # animalerie
+            45,  # jardinerie
+            90,  # jeux
+        ]
+        self.opff_codes_to_include = []
 
     def filter_products(self):
         """
         - product status must be "ACTIF"
-        - extra filtering depending on famille code
+        - filtering depending on famille code & source (off, obf, opf, opff)
         """
         self.products = [p for p in self.products if p["status"] == "ACTIF"]
-        self.products = [p for p in self.products if p["famille"]["code"] not in self.codes_to_exclude]
+        if self.source == "off":
+            self.products = [p for p in self.products if p["famille"]["code"] not in self.off_codes_to_exclude]
+        elif self.source == "obf":
+            self.products = [p for p in self.products if p["famille"]["code"] in self.obf_codes_to_include]
+        elif self.source == "opf":
+            self.products = [p for p in self.products if p["famille"]["code"] in self.opf_codes_to_include]
 
     def extract_products_codes(self):
         self.extract_products()

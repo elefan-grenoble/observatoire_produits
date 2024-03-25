@@ -8,13 +8,14 @@ logger = logging.getLogger(__name__)
 
 
 class EpicerieConnector:
-    def __init__(self) -> None:
+    def __init__(self, source="off") -> None:
         self.db_username = os.environ.get("DB_USERNAME")
         self.db_password = os.environ.get("DB_PASSWORD")
         self.db_host = os.environ.get("DB_HOST")
         self.db_name = os.environ.get("DB_NAME")
         self.api_url = os.environ.get("API_URL")
 
+        self.source = source
         self.products_facts = None
         self.products = None
         self.products_codes = None

@@ -7,7 +7,7 @@ import pandas as pd
 logger = logging.getLogger(__name__)
 
 
-def transform_products_facts(off_products_facts):
+def transform_products_facts(off_products_facts, source="off"):
     """
     Transform the list of products returned by the OFF API to a table ready to
     be loaded in a database
@@ -26,6 +26,8 @@ def transform_products_facts(off_products_facts):
                 product_fact_data[f"{OFF_FIELD_SELECTED_IMAGES}_{image_field}"] = product_fact["product"][OFF_FIELD_SELECTED_IMAGES][image_field]["display"]["fr"]
             except Exception:
                 product_fact_data[f"{OFF_FIELD_SELECTED_IMAGES}_{image_field}"] = None
+        # source
+        product_fact_data["source"] = source
         data.append(product_fact_data)
         # TODO : remove ';' from all values to avoid csv errors
         # TODO : remove white spaces
@@ -38,7 +40,7 @@ def main():
     cleaned data ready to be analyzed (saved in ../processed).
     """
     logger = logging.getLogger(__name__)
-    epicerie_connector = ElefanConnector()
+    epicerie_connector = ElefanConnector(source="off")
 
     logger.info("Récuperation de la liste des codes barres de l'epicerie")
     epicerie_connector.extract_products_codes()
@@ -46,7 +48,7 @@ def main():
     logger.info(f"{len(epicerie_connector.products_codes)} codes filtrés à traiter")
 
     logger.info("Récuperation des données Open Food Facts disponibles pour cette liste")
-    off_connector = OFFConnector()
+    off_connector = OFFConnector(source="off")
     off_connector.get_products_facts(epicerie_connector.products_codes)
 
     logger.info("Transformation des données Open Food Facts")
