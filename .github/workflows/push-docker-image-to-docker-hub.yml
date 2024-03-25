@@ -1,11 +1,11 @@
 name: Push Docker Image to Docker Hub
 
 on:
-  release:
-    types:
-      - published
+  push:
     branches:
       - main
+    tags:
+      - v*.*.*
 
 jobs:
   docker:
