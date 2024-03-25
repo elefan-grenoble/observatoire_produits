@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.5](https://github.com/elefan-grenoble/observatoire_produits/compare/v0.2.4...v0.2.5) (2024-03-25)
+
+
+### Bug Fixes
+
+* **ci:** try to fix Docker Hub CI run (remove branches). ref [#15](https://github.com/elefan-grenoble/observatoire_produits/issues/15) ([96a03b2](https://github.com/elefan-grenoble/observatoire_produits/commit/96a03b243e1d5a6e6ce3e2fd020cb11fcbe87a6e))
+
 ## [0.2.4](https://github.com/elefan-grenoble/observatoire_produits/compare/v0.2.3...v0.2.4) (2024-03-25)
 
 
