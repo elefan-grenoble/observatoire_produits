@@ -1,5 +1,5 @@
 import logging
-from off_connector import OFFConnector
+from off_connector import OFFConnector, OFF_FIELDS_TO_EXPORT
 from elefan_connector import ElefanConnector
 from dotenv import find_dotenv, load_dotenv
 import pandas as pd
@@ -9,32 +9,23 @@ logger = logging.getLogger(__name__)
 
 def transform_products_facts(off_products_facts):
     """
-    Transform the  list of products returned by the OFF API to a table ready to
+    Transform the list of products returned by the OFF API to a table ready to
     be loaded in a database
     """
     data = []
     for product_fact in off_products_facts:
+        product_fact_data = {}
+        # code
+        product_fact_data["code"] = product_fact["code"]
+        # simple fields
+        for field in [f for f in OFF_FIELDS_TO_EXPORT if f not in ["code", "selected_images"]]:
+            product_fact_data[field] = product_fact["product"].get(field, "")
+        # image
         try:
-            image = product_fact["product"]["selected_images"]["front"]["display"]["fr"]
+            product_fact_data["image"] = product_fact["product"]["selected_images"]["front"]["display"]["fr"]
         except Exception:
-            image = None
-        data.append(
-            {
-                "code": product_fact["code"],
-                "product_name": product_fact["product"].get("product_name", ""),
-                "quantity": product_fact["product"].get("quantity", ""),
-                "categories": product_fact["product"].get("categories", ""),
-                "labels": product_fact["product"].get("labels", ""),
-                "brands": product_fact["product"].get("brands", ""),
-                "origins": product_fact["product"].get("origins", ""),
-                "packaging": product_fact["product"].get("packaging", ""),
-                "nutriscore_grade": product_fact["product"].get("nutriscore_grade", ""),
-                "ecoscore_grade": product_fact["product"].get("ecoscore_grade", ""),
-                "nova_group": product_fact["product"].get("nova_group", ""),
-                "image": image,
-            }
-        )
-
+            product_fact_data["image"] = None
+        data.append(product_fact_data)
         # TODO : remove ';' from all values to avoid csv errors
         # TODO : remove white spaces
     return pd.DataFrame.from_records(data)
