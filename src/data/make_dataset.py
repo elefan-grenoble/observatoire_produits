@@ -1,5 +1,5 @@
 import logging
-from off_connector import OFFConnector, OFF_FIELDS_TO_EXPORT
+from off_connector import OFFConnector, OFF_FIELD_CODE, OFF_FIELD_SELECTED_IMAGES, OFF_FIELDS_TO_EXPORT, OFF_FIELD_SELECTED_IMAGES_KEYS
 from elefan_connector import ElefanConnector
 from dotenv import find_dotenv, load_dotenv
 import pandas as pd
@@ -16,15 +16,16 @@ def transform_products_facts(off_products_facts):
     for product_fact in off_products_facts:
         product_fact_data = {}
         # code
-        product_fact_data["code"] = product_fact["code"]
+        product_fact_data[OFF_FIELD_CODE] = product_fact[OFF_FIELD_CODE]
         # simple fields
-        for field in [f for f in OFF_FIELDS_TO_EXPORT if f not in ["code", "selected_images"]]:
+        for field in [f for f in OFF_FIELDS_TO_EXPORT if f not in [OFF_FIELD_CODE, OFF_FIELD_SELECTED_IMAGES]]:
             product_fact_data[field] = product_fact["product"].get(field, "")
-        # image
-        try:
-            product_fact_data["image"] = product_fact["product"]["selected_images"]["front"]["display"]["fr"]
-        except Exception:
-            product_fact_data["image"] = None
+        # images
+        for image_field in OFF_FIELD_SELECTED_IMAGES_KEYS:
+            try:
+                product_fact_data[f"{OFF_FIELD_SELECTED_IMAGES}_{image_field}"] = product_fact["product"][OFF_FIELD_SELECTED_IMAGES][image_field]["display"]["fr"]
+            except Exception:
+                product_fact_data[f"{OFF_FIELD_SELECTED_IMAGES}_{image_field}"] = None
         data.append(product_fact_data)
         # TODO : remove ';' from all values to avoid csv errors
         # TODO : remove white spaces

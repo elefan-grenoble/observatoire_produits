@@ -10,24 +10,26 @@ logger = logging.getLogger(__name__)
 # https://world.openfoodfacts.org/api/v2/product/3017620429484
 
 
+OFF_FIELD_CODE = "code"
+OFF_FIELD_SELECTED_IMAGES = "selected_images"
 OFF_FIELDS_TO_EXPORT = [
-    "code",
+    OFF_FIELD_CODE,
     "product_name",
     "quantity",
     "categories",
     "brands",
     "labels",
     "origins",
-    "packaging",
-    "stores",
-    "countries",
     "ingredients_text",
     "nutrition_data",
+    "packaging",
     "nutriscore_grade",
     "ecoscore_grade",
     "nova_group",
-    "selected_images",
+    OFF_FIELD_SELECTED_IMAGES,
 ]
+
+OFF_FIELD_SELECTED_IMAGES_KEYS = ["front", "ingredients", "nutrition", "packaging"]
 
 
 class OFFConnector:
