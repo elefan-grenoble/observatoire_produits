@@ -1,9 +1,9 @@
 name: Push Docker Image to Docker Hub
 
 on:
-  push:
-    tags:
-      - '*'
+  release:
+    types:
+      - published
 
 jobs:
   docker:
@@ -24,4 +24,4 @@ jobs:
           push: true
           tags: |
             lelefan/observatoireproduits:latest
-            lelefan/observatoireproduits:${{ github.ref_name }}
+            lelefan/observatoireproduits:${{ github.ref }}
