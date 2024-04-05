@@ -10,6 +10,7 @@ logger = logging.getLogger(__name__)
 # https://world.openfoodfacts.org/api/v2/product/3017620429484
 
 
+APP_USER_AGENT = "elefan-grenoble/observatoire_produits"
 OFF_FIELD_CODE = "code"
 OFF_FIELD_SELECTED_IMAGES = "selected_images"
 OFF_FIELDS_TO_EXPORT = [
@@ -35,7 +36,7 @@ OFF_FIELD_SELECTED_IMAGES_KEYS = ["front", "ingredients", "nutrition", "packagin
 class OFFConnector:
     def __init__(self) -> None:
         self.products_facts = []
-        self.api = openfoodfacts.API()
+        self.api = openfoodfacts.API(user_agent=APP_USER_AGENT)
 
     def get_product_fact(self, barcode):
         try:
