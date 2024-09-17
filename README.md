@@ -55,7 +55,7 @@ Ce projet récupère la liste des articles vendus dans une épicerie puis ajoute
 * Récupération des produits à la vente : Depuis son [API](https://produits.lelefan.org/api/).
 * Sauvegarde : Dans sa base de donnée MariaDb
 
-# Organisation
+## Organisation
 
 ```
 ├── LICENSE

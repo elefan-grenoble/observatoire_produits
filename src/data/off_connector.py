@@ -33,9 +33,10 @@ OFF_FIELD_SELECTED_IMAGES_KEYS = ["front", "ingredients", "nutrition", "packagin
 
 
 class OFFConnector:
-    def __init__(self) -> None:
+    def __init__(self, source="off") -> None:
         self.products_facts = []
-        self.api = openfoodfacts.API()
+        self.source: openfoodfacts.Flavor = source
+        self.api = openfoodfacts.API(flavor=openfoodfacts.Flavor[self.source])
 
     def get_product_fact(self, barcode):
         try:
