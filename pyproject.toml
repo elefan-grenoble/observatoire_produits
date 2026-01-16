@@ -1,0 +1,53 @@
+[build-system]
+requires = ["setuptools>=45", "wheel", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "observatoire-produits"
+version = "0.1.0"
+description = "Mieux connaitre les produits d'une épicerie grâce à la BDD d'Open Food Facts"
+authors = [
+  {name = "Quentin LORIDANT"},
+  {name = "Raphael ODINI"}
+]
+license = {text = "MIT"}
+requires-python = ">=3.11"
+dependencies = [
+  "coverage==7.4.2",
+  "flake8==7.0.0",
+  "openfoodfacts==0.1.12",
+  "pandas==2.2.1",
+  "pymysql==1.1.0",
+  "python-dotenv>=0.5.1",
+  "Sphinx==7.2.6",
+  "sqlalchemy==2.0.27",
+]
+
+[dependency-groups]
+dev = [
+  "pytest>=7.0",
+  "pytest-cov>=4.0",
+  "pre-commit>=3.0",
+  "ruff>=0.14.13",
+]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 88
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.ruff.lint]
+select = [
+  "B", # flake8-bugbear
+  "UP", # pyupgrade
+  "E", # pycodestyle errors
+  "W", # pycodestyle warnings
+  "F", # pyflakes
+  "I" # isort
+]
+ignore = [
+  "E501" # line too long (handled by ruff)
+]

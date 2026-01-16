@@ -1,7 +1,8 @@
-import openfoodfacts
 import logging
-import requests
 import time
+
+import openfoodfacts
+import requests
 
 logger = logging.getLogger(__name__)
 
@@ -41,7 +42,9 @@ class OFFConnector:
     def get_product_fact(self, barcode):
         try:
             product = self.api.product.get(barcode, fields=OFF_FIELDS_TO_EXPORT)
-            logger.info(f"Product found for url : https://world.openfoodfacts.org/api/v2/product/{barcode}")
+            logger.info(
+                f"Product found for url : https://world.openfoodfacts.org/api/v2/product/{barcode}"
+            )
         except requests.exceptions.HTTPError as e:
             logger.info(e)
             return None

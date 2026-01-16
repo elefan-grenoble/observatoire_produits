@@ -1,9 +1,16 @@
 FROM python:3.12-slim
 
-COPY requirements.txt /opt/app/requirements.txt
+# Install uv
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
+
 WORKDIR /opt/app
-RUN pip install -r requirements.txt
-COPY . /opt/app
+
+# Copy project files
+COPY pyproject.toml .
+COPY src ./src
+
+# Install dependencies with uv
+RUN uv sync --frozen
 
 # RUN
-CMD  ["python3", "src/data/make_dataset.py"]
+CMD ["uv", "run", "python", "src/data/make_dataset.py"]
