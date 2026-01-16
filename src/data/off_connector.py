@@ -60,7 +60,7 @@ class OFFConnector:
         per minute
         """
         for index, barcode in enumerate(barcodes):
-            product_fact = self.get_product_fact(barcode)
+            product_fact = self.get_product_fact(str(barcode))
             if product_fact:
                 self.products_facts.append(product_fact)
             # Avoid too many calls to the API
