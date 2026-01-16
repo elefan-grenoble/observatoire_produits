@@ -1,50 +1,10 @@
 import logging
 
-import pandas as pd
 from dotenv import find_dotenv, load_dotenv
 from elefan_connector import ElefanConnector
-from off_connector import (
-    OFF_FIELD_CODE,
-    OFF_FIELD_SELECTED_IMAGES,
-    OFF_FIELD_SELECTED_IMAGES_KEYS,
-    OFF_FIELDS_TO_EXPORT,
-    OFFConnector,
-)
+from off_connector import OFFConnector
 
 logger = logging.getLogger(__name__)
-
-
-def transform_products_facts(off_products_facts):
-    """
-    Transform the list of products returned by the OFF API to a table ready to
-    be loaded in a database
-    """
-    data = []
-    for product_fact in off_products_facts:
-        product_fact_data = {}
-        # code
-        product_fact_data[OFF_FIELD_CODE] = product_fact[OFF_FIELD_CODE]
-        # simple fields
-        for field in [
-            f
-            for f in OFF_FIELDS_TO_EXPORT
-            if f not in [OFF_FIELD_CODE, OFF_FIELD_SELECTED_IMAGES]
-        ]:
-            product_fact_data[field] = product_fact["product"].get(field, "")
-        # images
-        for image_field in OFF_FIELD_SELECTED_IMAGES_KEYS:
-            try:
-                product_fact_data[f"{OFF_FIELD_SELECTED_IMAGES}_{image_field}"] = (
-                    product_fact[
-                        "product"
-                    ][OFF_FIELD_SELECTED_IMAGES][image_field]["display"]["fr"]
-                )
-            except Exception:
-                product_fact_data[f"{OFF_FIELD_SELECTED_IMAGES}_{image_field}"] = None
-        data.append(product_fact_data)
-        # TODO : remove ';' from all values to avoid csv errors
-        # TODO : remove white spaces
-    return pd.DataFrame.from_records(data)
 
 
 def main():
@@ -56,19 +16,17 @@ def main():
     epicerie_connector = ElefanConnector()
 
     logger.info("Récuperation de la liste des codes barres de l'epicerie")
-    epicerie_connector.extract_products_codes()
-    epicerie_connector.transform_products_codes()
-    logger.info(f"{len(epicerie_connector.products_codes)} codes filtrés à traiter")
+    epicerie_connector.get_products_code_list()
+    logger.info(f"{len(epicerie_connector.products_code_list)} codes filtrés à traiter")
 
     logger.info("Récuperation des données Open Food Facts disponibles pour cette liste")
     off_connector = OFFConnector()
-    off_connector.get_products_facts(epicerie_connector.products_codes)
-
+    off_connector.get_products_facts(epicerie_connector.products_code_list)
     logger.info("Transformation des données Open Food Facts")
-    products_facts = transform_products_facts(off_connector.products_facts)
+    off_connector.transform_products_facts()
 
-    logger.info("Sauvegarde des données Open Food Facts")
-    epicerie_connector.load_products_facts(products_facts)
+    logger.info("Sauvegarde des données Open Food Facts en DB")
+    epicerie_connector.load_products_facts(off_connector.products_facts_cleaned)
 
 
 if __name__ == "__main__":
