@@ -1,10 +1,10 @@
 from setuptools import find_packages, setup
 
 setup(
-    name='src',
+    name="src",
     packages=find_packages(),
-    version='0.1.0',
-    description='Mieux connaitre les produits d\'une épicerie grâce à la BDD d\'Open Food Facts',
-    author='Quentin Loridant',
-    license='MIT',
+    version="0.1.0",
+    description="Mieux connaitre les produits d'une épicerie grâce à la BDD d'Open Food Facts",
+    author="Quentin Loridant",
+    license="MIT",
 )

@@ -1,6 +1,7 @@
-from epicerie_connector import EpicerieConnector
 import os
+
 import dotenv
+from epicerie_connector import EpicerieConnector
 
 project_dir = os.path.join(os.path.dirname(__file__), os.pardir)
 dotenv_path = os.path.join(project_dir, ".env")
@@ -31,7 +32,11 @@ class ElefanConnector(EpicerieConnector):
         - extra filtering depending on famille code
         """
         self.products = [p for p in self.products if p["status"] == "ACTIF"]
-        self.products = [p for p in self.products if p["famille"]["code"] not in self.codes_to_exclude]
+        self.products = [
+            p
+            for p in self.products
+            if p["famille"]["code"] not in self.codes_to_exclude
+        ]
 
     def extract_products_codes(self):
         self.extract_products()

@@ -16,9 +16,11 @@ Ce projet récupère la liste des articles vendus dans une épicerie puis ajoute
 
 ### En local
 
+1. Installer [uv](https://docs.astral.sh/uv/) - un gestionnaire de paquets Python rapide
 1. Configurer les variables d'environnement dans le fichier `.env` (voir `.env.EXEMPLE`)
-1. Installer les packages python `pip install -r requirements.txt`
-1. Run `python src/data/make_dataset.py`
+1. Installer les dépendances : `uv sync`
+1. (Optionnel) Configurer pre-commit : `uv run pre-commit install`
+1. Exécuter le script : `uv run python src/data/make_dataset.py`
 
 ### Avec Docker 🐳
 
@@ -71,10 +73,9 @@ Ce projet récupère la liste des articles vendus dans une épicerie puis ajoute
 │
 ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
 │
-├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-│                         generated with `pip freeze > requirements.txt`
+├── pyproject.toml     <- Project configuration and dependencies managed with uv
 │
-├── setup.py           <- makes project pip installable (pip install -e .) so src can be imported
+├── setup.py           <- Legacy setup.py (kept for backwards compatibility)
 ├── src                <- Source code for use in this project.
 │   ├── __init__.py    <- Makes src a Python module
 │   │

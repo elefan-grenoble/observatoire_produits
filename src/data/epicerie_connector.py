@@ -1,8 +1,9 @@
-import sqlalchemy
-import os
-import requests
 import logging
+import os
 import sys
+
+import requests
+import sqlalchemy
 
 logger = logging.getLogger(__name__)
 
@@ -41,7 +42,9 @@ class EpicerieConnector:
         """
         keep only EAN8 & EAN13 codes
         """
-        self.products_codes = [code for code in self.products_codes if len(str(code)) in [8, 13]]
+        self.products_codes = [
+            code for code in self.products_codes if len(str(code)) in [8, 13]
+        ]
         if os.environ.get("DEBUG"):
             self.products_codes = self.products_codes[0:50]
 
