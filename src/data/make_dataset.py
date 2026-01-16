@@ -1,7 +1,8 @@
 import logging
-from off_connector import OFFConnector
-from elefan_connector import ElefanConnector
+
 from dotenv import find_dotenv, load_dotenv
+from elefan_connector import ElefanConnector
+from off_connector import OFFConnector
 
 logger = logging.getLogger(__name__)
 
@@ -16,16 +17,15 @@ def main():
 
     logger.info("Récuperation de la liste des codes barres de l'epicerie")
     epicerie_connector.get_products_code_list()
-    logger.info(f"{len(epicerie_connector.products_codes)} codes filtrés à traiter")
+    logger.info(f"{len(epicerie_connector.products_code_list)} codes filtrés à traiter")
 
     logger.info("Récuperation des données Open Food Facts disponibles pour cette liste")
     off_connector = OFFConnector()
-    off_connector.get_products_facts(epicerie_connector.products_codes)
-
+    off_connector.get_products_facts(epicerie_connector.products_code_list)
     logger.info("Transformation des données Open Food Facts")
     off_connector.transform_products_facts()
 
-    logger.info("Sauvegarde des données Open Food Facts")
+    logger.info("Sauvegarde des données Open Food Facts en DB")
     epicerie_connector.load_products_facts(off_connector.products_facts_cleaned)
 
 

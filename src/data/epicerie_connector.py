@@ -62,9 +62,11 @@ class EpicerieConnector:
         Step 4: filter product codes
         - keep only EAN8 & EAN13 codes
         """
-        self.products_code_list = [code for code in self.products_code_list if len(str(code)) in [8, 13]]
+        self.products_code_list = [
+            code for code in self.products_code_list if len(str(code)) in [8, 13]
+        ]
         if os.environ.get("DEBUG"):
-            self.products_code_list = self.products_code_list[0:50]
+            self.products_code_list = self.products_code_list[0:5]
 
     def get_products_code_list(self):
         self.extract_products()

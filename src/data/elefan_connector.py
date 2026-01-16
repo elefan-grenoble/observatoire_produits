@@ -29,13 +29,15 @@ class ElefanConnector(EpicerieConnector):
     def filter_products(self):
         """
         epicerie-specific filtering rules:
-        - exclude products with a code starting with "2" (usually custom barcodes)
         - the product status must be "ACTIF"
         - for now, only handle "food" products
         """
-        self.products = [p for p in self.products if not p["code"].startswith("2")]
         self.products = [p for p in self.products if p["status"] == "ACTIF"]
-        self.products = [p for p in self.products if p["famille"]["code"] not in self.codes_to_exclude]
+        self.products = [
+            p
+            for p in self.products
+            if p["famille"]["code"] not in self.codes_to_exclude
+        ]
 
     def extract_products_code_list(self):
         self.products_code_list = [p["code"] for p in self.products]
